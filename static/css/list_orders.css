@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/bck.webp');
+    backdrop-filter: blur(3px);
+    background-size: cover;
+    background-position: center;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.logo {
+    width: 50px;
+}
+
+.text {
+    width: 120px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.orders-container {
+    width: 80%;
+    max-width: 600px;
+    background: rgba(55, 50, 50, 0.375);
+    color: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    margin: 20px auto;
+}
+
+.orders-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.order-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.order-box p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.btn-cancel {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #d32f2f;
+}
+
+.disabled-text {
+    color: rgb(161, 160, 160);
+    font-weight: bold;
+}
+
+.btn-cancel-container {
+    display: flex;
+    justify-content: right;
+    margin-top: 20px;
+}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - PrintEase</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="{% static 'images/logo.png' %}" alt="PrintEase Logo" class="logo">
+            <img src="{% static 'images/text.png' %}" alt="text" class="text">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="profile-container">
+        <h2>Your Profile</h2>
+        <form method="POST" action="{% url 'update_profile' %}">
+            {% csrf_token %}
+            <div class="profile-box">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}" readonly>
+
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" name="phone" value="{{ user_detail.phone }}" required>
+
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required>{{ user_detail.address }}</textarea>
+
+                <button type="submit">Update Profile</button>
+            </div>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 HomePrints. All Rights Reserved.</p>
+    </footer>
+    {% if messages %}
+        <ul id="message-list" style="display: none;">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let messageList = document.querySelectorAll("#message-list li");
+
+            messageList.forEach((msg) => {
+                alert(msg.textContent);  // ✅ Show alert for each message
+            });
+        });
+    </script>
+</html>

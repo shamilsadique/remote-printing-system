@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Order Print - PrintEase</title>
+    <link rel="stylesheet" href="{% static 'css/order.css' %}">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="{% static 'js/order.js' %}"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="{% static 'images/logo.png' %}" alt="PrintEase Logo" class="logo">
+            <img src="{% static 'images/text.png' %}" alt="text" class="text">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'list_orders' %}">Your Orders</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'signin' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <section class="order">
+        <h1>Place Your Order</h1>
+        <p>Upload your file, select print options, and place your order.</p>
+
+        <form id="order-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="file">Upload File (PDF, DOCX, PNG, JPG):</label>
+            <input type="file" id="file" name="file" required>
+
+            <label for="print-type">Print Type:</label>
+            <select id="print-type" name="print-type">
+                <option value="black-white">Black & White</option>
+                <option value="color">Color</option>
+            </select>
+
+            <label for="paper-size">Paper Size:</label>
+            <select id="paper-size" name="paper-size">
+                <option value="A4">A4</option>
+                <option value="A3">A3</option>
+                <option value="Letter">Letter</option>
+                <option value="Legal">Legal</option>
+            </select>
+
+            <label for="copies">Number of Copies:</label>
+            <input type="number" id="copies" name="copies" min="1" value="1" required>
+
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="Any special instructions?"></textarea>
+
+            <label for="payment-mode">Payment Mode:</label>
+            <select id="payment-mode" name="payment-mode">
+                <option value="cod">Cash on Delivery</option>
+                <option value="online">Online Payment</option>
+            </select>
+
+            <!-- Price Display -->
+            <p id="price-display"><strong>Total Price: ₹0.00</strong></p>
+
+            <button type="submit" id="submit-btn" class="btn">Submit Order</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 PrintEase. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("order-form").onsubmit = function(event) {
+            event.preventDefault();
+    
+            let formData = new FormData(this);
+            let paymentMode = document.getElementById("payment-mode").value;
+    
+            fetch("/process_order/", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                if (paymentMode === "cod") {
+                    return response.text().then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    });
+                } else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                if (data && data.order_id) {
+                    let options = {
+                        "key": data.key,
+                        "amount": data.amount * 100,
+                        "currency": data.currency,
+                        "order_id": data.order_id,
+                        "name": "PrintEase",
+                        "description": "Print Order Payment",
+                        "handler": function (response) {
+                            window.location.href = "/payment_success/?payment_id=" + response.razorpay_payment_id + "&order_id=" + data.order_id;
+                        }
+                    };
+            
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+
+                    // Small delay to ensure scrolling happens before Razorpay opens
+                    setTimeout(() => {
+                        let rzp = new Razorpay(options);
+                        rzp.open();
+                    }, 500); 
+
+                }
+            });
+        };
+    </script>
+    
+        
+</body>
+</html>

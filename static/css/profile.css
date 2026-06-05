@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/bck.webp');
+    backdrop-filter: blur(3px);
+    background-size: cover;
+    background-position: center;
+    color: #333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10%;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.logo {
+    width: 50px;
+}
+
+.text {
+    width: 120px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+}
+
+.profile-container {
+    width: 80%;
+    max-width: 400px;
+    background: rgba(55, 50, 50, 0.375);
+    color: #fff;
+    border-radius: 12px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    margin: 20px auto;
+}
+
+.profile-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.profile-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-box label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.profile-box input,
+.profile-box textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #3e3c3c;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #33333383;
+    color: white;
+}
+
+.profile-box input:focus,
+.profile-box textarea:focus {
+    outline: none;
+    border: 1px solid #fdf8f83f;
+    background-color: rgba(255, 245, 238, 0.404);
+}
+
+.profile-box textarea {
+    resize: none;
+    height: 80px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    margin-top: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+}

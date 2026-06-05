@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - PrintEase</title>
+    <link rel="stylesheet" href="{% static 'css/order_success.css' %}">
+</head>
+<body>
+    <header>
+        <div>
+            <img src="{% static 'images/logo.png' %}" alt="PrintEase Logo" class="logo">
+            <img src="{% static 'images/text.png' %}" alt="text" class="text">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'order' %}">New Order</a></li>
+                <li><a href="{% url 'list_orders' %}">Your Orders</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="order-summary">
+        <h1>Order Confirmation</h1>
+        <p>Thank you for placing your order! Here are the details:</p>
+
+        <div class="order-details">
+            <p><strong>File:</strong> {{ file_name }}</p>
+            <p><strong>Print Type:</strong> {{ print_type }}</p>
+            <p><strong>Paper Size:</strong> {{ paper_size }}</p>
+            <p><strong>Copies:</strong> {{ copies }}</p>
+            <p><strong>Special Instructions:</strong> {{ notes|default:"None" }}</p>
+            <p><strong>Total Price:</strong> ₹{{ total_price }}</p>
+        </div>
+
+        <a href="/" class="btn">Back to Home</a>
+    </section>
+    {% if messages %}
+        <ul id="message-list" style="display: none;">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <footer>
+        <p>&copy; 2024 PrintEase. All Rights Reserved.</p>
+    </footer>
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let messageList = document.querySelectorAll("#message-list li");
+
+            messageList.forEach((msg) => {
+                alert(msg.textContent);  // ✅ Show alert for each message
+            });
+        });
+    </script>
+</html>

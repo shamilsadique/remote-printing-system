@@ -1,0 +1,93 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintEase - Professional Printing Services</title>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="{% static 'images/logo.png' %}" alt="PrintEase Logo" class="logo">
+            <img src="{% static 'images/text.png' %}" alt="text" class="text">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'list_orders' %}">Your Orders</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'signout' %}">Logout</a></li>
+                {% else %}
+                <li><a href="{% url 'signin' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Fast & Professional Printing Services</h1>
+            <p>Get high-quality prints for business, events, and personal use. Order online with fast delivery.</p>
+            <a href="order" class="btn">Order Now</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Our Services</h2>
+        <div class="service-boxes">
+            <div class="service-box">
+                <i class='bx bxs-printer'></i>
+                <h3>Digital Printing</h3>
+                <p>High-resolution prints for all your needs.</p>
+            </div>
+            <div class="service-box">
+                <i class='bx bxs-business'></i>
+                <h3>Business Cards</h3>
+                <p>Make a lasting impression with custom business cards.</p>
+            </div>
+            <div class="service-box">
+                <i class='bx bxs-file-pdf'></i>
+                <h3>Document Printing</h3>
+                <p>Print reports, presentations, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Us</h2>
+        <p>PrintEase has been providing top-quality printing services for over 4 years. We use the latest technology to ensure high-resolution prints with vibrant colors and sharp details.</p>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact Us</h2>
+        <p>Email: homeprints5555@gmail.com | Phone: +91 90485 51626</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2021 HomePrints. All Rights Reserved.</p>
+    </footer>
+    {% if messages %}
+        <ul id="message-list" style="display: none;">
+            {% for message in messages %}
+                <li class="message {{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let messageList = document.querySelectorAll("#message-list li");
+
+            messageList.forEach((msg) => {
+                alert(msg.textContent);  // ✅ Show alert for each message
+            });
+        });
+    </script>
+</html>
