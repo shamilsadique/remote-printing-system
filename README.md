@@ -69,6 +69,20 @@ text http://127.0.0.1:8000/
 - PDF Preview Before Printing
 - Mobile Application Support
 
+## Screenshots
+
+### Login Page
+
+![Login Page](screenshots/login-page.jpg)
+
+### Registration Page
+
+![Registration Page](screenshots/registration-page.jpg)
+
+### Order Submission Page
+
+![Order Submission Page](screenshots/order-page.jpg)
+
 ## Author
 
 Shamil Sadique
